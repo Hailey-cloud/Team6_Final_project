@@ -50,7 +50,7 @@ def add_transaction():
     while True:
         description = input("Enter description: ")
         if description.strip():
-            break  # 説明が空でなければループを抜ける
+            break
         else:
             print("Description cannot be empty.")
 

@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 
 # global valuable
-transactions = pd.DataFrame(columns=["Date", "Category", "Description", "Amount"])
+transactions = pd.DataFrame(columns=["Date", "Category", "Description", "Amount","Type"])
 
 def import_csv():
     global transactions
@@ -25,8 +25,64 @@ def view_transactions():
 def view_transactions_by_date():
     print("view_transactions_by_date")
 
+
 def add_transaction():
-    print("add_transaction")
+    global transactions
+
+    # Input Date
+    while True:
+        try:
+            date = input("Enter the date (YYYY-MM-DD): ")
+            date = pd.to_datetime(date, format="%Y-%m-%d")
+            break
+        except ValueError:
+            print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
+
+    # Input Category
+    while True:
+        category = input("Enter category: ")
+        if category.strip():
+            break
+        else:
+            print("Category cannot be empty.")
+
+    # Input Describe
+    while True:
+        description = input("Enter description: ")
+        if description.strip():
+            break  # 説明が空でなければループを抜ける
+        else:
+            print("Description cannot be empty.")
+
+    # Input Amount
+    while True:
+        try:
+            amount = float(input("Enter amount: "))
+            if amount > 0:
+                break
+            else:
+                print("Amount must be a positive number.")
+        except ValueError:
+            print("Invalid amount. Please enter a numeric value.")
+
+    # Input Type(Expense,Income)
+    while True:
+        trans_type = input("Enter type (Expense or Income): ").strip().capitalize()
+        if trans_type in ["Expense", "Income"]:
+            break
+        else:
+            print("Invalid type. Please enter either 'Expense' or 'Income'.")
+
+    # Making new transaction
+    new_transaction = pd.DataFrame({
+        "Date": [date],
+        "Category": [category],
+        "Description": [description],
+        "Amount": [amount],
+        "Type": [trans_type]
+    })
+    transactions = pd.concat([transactions, new_transaction], ignore_index=True)
+    print("Transaction added successfully!")
 
 def edit_transaction():
     print("edit_transaction")

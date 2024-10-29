@@ -56,9 +56,6 @@ def view_transactions_by_date():
 
         except ValueError:
             print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
-#start dateの入力が終わった後に、enddateの入力だけが間違っていた場合、enddate入力に戻るようにする
-#transactionの範囲外の日付が入力された時に、正しく入力するようにする。
-
 
 
 

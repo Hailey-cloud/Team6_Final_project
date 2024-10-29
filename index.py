@@ -85,7 +85,72 @@ def add_transaction():
     print("Transaction added successfully!")
 
 def edit_transaction():
-    print("edit_transaction")
+    global transactions
+    print(transactions)
+    while True:  # validate the transaction row
+        try:
+            row = int(input("Enter the number of the transaction you want to edit: "))
+            if 0 < row < (len(transactions) - 1):
+                break
+            else:
+                print("Enter a valid number of transaction.")
+        except ValueError:
+            print("Enter a valid number of transaction.")
+
+    print("Current transaction details: ")
+    print(transactions.loc[row, :])  # print the transaction details
+    print()
+    date, category, description, amount, _ = transactions.loc[row, :]
+
+    # Input new Date
+    while True:
+        try:
+            date_n = input("Enter new date(YYYY - MM - DD) or press Enter to keep current: ")
+            if date_n.strip() == "":  # if no date, set old date
+                date_n = date
+            else:
+                date_n = pd.to_datetime(date_n, format="%Y-%m-%d")
+            break
+        except ValueError:
+            print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
+
+    # Input new Category
+    while True:
+        category_n = input("Enter new category or press Enter to keep current: ")
+        if category_n.strip():
+            break
+        else:
+            category_n = category  # if no category, set old category
+            break
+
+    # Input new Describe
+    while True:
+        description_n = input("Enter new description or press Enter to keep current: ")
+        if description_n.strip():
+            break
+        else:
+            description_n = description  # if no description, set old description
+            break
+
+    # Input new Amount
+    while True:
+        try:
+            amount_n = input("Enter new amount or press Enter to keep current: ")
+            if amount_n.strip() == "":
+                amount_n = amount  # if no amount, set old amount
+                break
+            amount_n = float(amount_n)
+            if amount_n > 0:
+                break
+            else:
+                print("Amount must be a positive number.")
+        except ValueError:
+            print("Invalid amount. Please enter a numeric value.")
+
+    # Editing the transaction by accessing the row
+    transactions.loc[row, ["Date", "Category", "Description", "Amount"]] = [date_n, category_n, description_n, amount_n]
+    print(transactions.loc[row, :])
+    print("Transaction edited successfully!")
 
 def delete_transaction():
     print("delete_transaction")

@@ -57,8 +57,6 @@ def view_transactions_by_date():
         except ValueError:
             print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
 
-
-
 def add_transaction():
     global transactions
 
@@ -195,7 +193,14 @@ def calculate_average_monthly_spending():
     print("calculate_average_monthly_spending")
 
 def show_top_spending_category():
-    print("show_top_spending_category")
+    global transactions
+    if transactions.empty:
+        print("There are not transactions available.")
+    else:
+        expenses = transactions[transactions['Type'] == "Expense"]
+        top_cat_expenses = expenses.groupby('Category')[['Amount']].sum().sort_values(by='Amount', ascending=False)
+        print("The top spending categories are:")
+        print(top_cat_expenses)
 
 def visualize_monthly_spending():
     print("visualize_monthly_spending")

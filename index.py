@@ -113,11 +113,14 @@ def add_transaction():
 
 def edit_transaction():
     global transactions
+    if transactions.empty:
+        print("There are not transactions available.")
+        return
     print(transactions)
     while True:  # validate the transaction row
         try:
             row = int(input("Enter the number of the transaction you want to edit: "))
-            if 0 < row < (len(transactions) - 1):
+            if 0 <= row <= (len(transactions) - 1):
                 break
             else:
                 print("Enter a valid number of transaction.")

@@ -123,7 +123,7 @@ def edit_transaction():
     while True:  # validate the transaction row
         try:
             row = int(input("Enter the number of the transaction you want to edit: "))
-            if 0 < row < (len(transactions) - 1):
+            if 0 <= row <= (len(transactions) - 1):
                 break
             else:
                 print("Enter a valid number of transaction.")
@@ -186,7 +186,20 @@ def edit_transaction():
     print("Transaction edited successfully!")
 
 def delete_transaction():
-    print("delete_transaction")
+    global transactions
+    print(transactions)
+    while True:  # validate the transaction row
+        try:
+            row = int(input("Enter the number of the transaction you want to delete: "))
+            if 0 <= row <= (len(transactions) - 1):
+                break
+            else:
+                print("Enter a valid number of transaction.")
+        except ValueError:
+            print("Enter a valid number of transaction.")
+
+    transactions = transactions.drop(row).reset_index(drop=True)  # print the transaction details
+    print("Transaction deleted successfully!")
 
 def analyze_spending_by_category():
     print("analyze_spending_by_category")

@@ -142,7 +142,15 @@ def visualize_spending_distribution():
     print("visualize_spending_distribution")
 
 def save_transactions_to_csv():
-    print("save_transactions_to_csv")
+    global transactions
+    file_path = "sampledata.csv"  # define file path
+    if transactions.empty:  # if transactions is empty
+        print("There are not transactions yet. No file saved.\n")
+        return
+    else:
+        transactions.to_csv(file_path, index=False, header=True, sep=",")  # write in the file
+        print(f"Tasks saved to '{file_path}'.")
+        print("The transactions were saved successfully!")
 
 def process_choice(choice):
     if choice == "0":

@@ -187,6 +187,9 @@ def edit_transaction():
 
 def delete_transaction():
     global transactions
+    if transactions.empty:
+        print("There are not transactions available.")
+        return
     print(transactions)
     while True:  # validate the transaction row
         try:

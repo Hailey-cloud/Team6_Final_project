@@ -23,7 +23,31 @@ def view_transactions():
         print(transactions)
 
 def view_transactions_by_date():
+    global transactions
+
     print("view_transactions_by_date")
+
+    while True:
+        try:
+            start_view_date = input("Enter the start date(YYYY-MM-DD): ")
+            start_view_date = pd.to_datetime(start_view_date , format="%Y-%m-%d")
+            end_view_date = input("Enter the end date(YYYY-MM-DD): ")
+            end_view_date = pd.to_datetime(end_view_date, format="%Y-%m-%d")
+
+            filtered_data = (transactions["Date"] >= start_view_date) & (transactions["Date"] <= end_view_date)
+            filtered_specified_data = transactions[filtered_data]
+
+            print(filtered_specified_data)
+            break
+
+        except ValueError:
+            print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
+            continue
+
+#start dateの入力が終わった後に、enddateの入力だけが間違っていた場合、enddate入力に戻るようにする
+#transactionの範囲外の日付が入力された時に、正しく入力するようにする。
+
+
 
 
 def add_transaction():

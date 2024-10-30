@@ -23,42 +23,36 @@ def view_transactions():
         print(transactions)
 
 def view_transactions_by_date():
-    global transactions
-
     print("view_transactions_by_date")
-
     min_date = transactions["Date"].min()
     max_date = transactions["Date"].max()
 
     while True:
         try:
             start_view_date = pd.to_datetime(input("Enter the start date(YYYY-MM-DD): "), format="%Y-%m-%d")
-
             if start_view_date < min_date or start_view_date > max_date:
                 print("Invalid date format. Please enter the valid date range.")
                 continue
-
-            while True:
-                try:
-                    end_view_date = pd.to_datetime(input("Enter the end date(YYYY-MM-DD): "), format="%Y-%m-%d")
-                    if end_view_date < min_date or end_view_date > max_date:
-                        print("Invalid date format. Please enter the valid date range.")
-                        continue
-
-                    filtered_data = (transactions["Date"] >= start_view_date) & (transactions["Date"] <= end_view_date)
-
-                    filtered_specified_data = transactions[filtered_data]
-
-                    print(filtered_specified_data)
-
-                except ValueError:
-                    print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
-
+            else:
+                break
         except ValueError:
             print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
 
+    while True:
+        try:
+            end_view_date = pd.to_datetime(input("Enter the end date(YYYY-MM-DD): "), format="%Y-%m-%d")
+            if end_view_date < min_date or end_view_date > max_date:
+                print("Invalid date format. Please enter the valid date range.")
+                continue
+            else:
+                break
+        except ValueError:
+            print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
+    filtered_data = (transactions["Date"] >= start_view_date) & (transactions["Date"] <= end_view_date)
+    filtered_specified_data = transactions[filtered_data]
+    print(filtered_specified_data)
 
-
+    
 def add_transaction():
     global transactions
 
@@ -119,6 +113,9 @@ def add_transaction():
 
 def edit_transaction():
     global transactions
+    if transactions.empty:
+        print("There are not transactions available.")
+        return
     print(transactions)
     while True:  # validate the transaction row
         try:
@@ -205,13 +202,64 @@ def delete_transaction():
     print("Transaction deleted successfully!")
 
 def analyze_spending_by_category():
-    print("analyze_spending_by_category")
+    print("--- Total Spending by Category ---")
+    global transactions
 
+    if transactions.empty:
+        print("No transactions to display.Import a CSV file at first.")
+
+    else:
+        spending_data = transactions[transactions["Type"] == "Expense"]
+
+        total_spending_each_category = spending_data.groupby("Category")["Amount"].sum()
+        total_spending_each_category = total_spending_each_category.sort_values(ascending=True)
+        print(total_spending_each_category)
+
+        total_spending_each_category.plot(kind="bar",color="orange",grid="True")
+
+        plt.title("total_spending_each_category")
+        plt.xlabel("Category")
+        plt.ylabel("Total amount (CAD)")
+
+        for index, value in enumerate(total_spending_each_category):
+            plt.text(index, value, f'{value:.2f}', ha='center', va='bottom')
+
+        plt.show()
 def calculate_average_monthly_spending():
-    print("calculate_average_monthly_spending")
+    print("--- Average Monthly Spending ---")
+    global transactions
+
+    if transactions.empty:
+        print("No transactions to display.Import a CSV File.")
+
+    else:
+        spending_data_only_expenses = transactions[transactions["Type"] == "Expense"]
+
+        if spending_data_only_expenses.empty:
+            print("No transactions to display.")
+
+        else:
+            date_and_expense = spending_data_only_expenses[["Date","Amount"]]
+            date_and_expense.loc[:,"Date"] = pd.to_datetime(date_and_expense["Date"])
+            date_and_expense.set_index("Date",inplace=True)
+
+
+            monthly_average = date_and_expense.resample("MS").mean()
+            overall_average = monthly_average["Amount"].mean().round(3)
+            print(f"Average Monthly Spending is {overall_average}. \n")
+
+            print("--- Details ---\n")
+            print(monthly_average)
 
 def show_top_spending_category():
-    print("show_top_spending_category")
+    global transactions
+    if transactions.empty:
+        print("There are not transactions available.")
+    else:
+        expenses = transactions[transactions['Type'] == "Expense"]
+        top_cat_expenses = expenses.groupby('Category')[['Amount']].sum().sort_values(by='Amount', ascending=False)
+        print("The top spending categories are:")
+        print(top_cat_expenses)
 
 def visualize_monthly_spending():
     print("visualize_monthly_spending")

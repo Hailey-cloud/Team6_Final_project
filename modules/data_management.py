@@ -48,6 +48,7 @@ def view_transactions_by_date():
 def add_transaction():
     transactions = get_transactions()
 
+    # Input Date
     while True:
         try:
             date = input("Enter the date (YYYY-MM-DD): ")
@@ -56,6 +57,7 @@ def add_transaction():
         except ValueError:
             print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
 
+    # Input Category
     while True:
         category = input("Enter category: ")
         if category.strip():
@@ -63,6 +65,7 @@ def add_transaction():
         else:
             print("Category cannot be empty.")
 
+    # Input Describe
     while True:
         description = input("Enter description: ")
         if description.strip():
@@ -70,6 +73,7 @@ def add_transaction():
         else:
             print("Description cannot be empty.")
 
+    # Input Amount
     while True:
         try:
             amount = float(input("Enter amount: "))
@@ -79,6 +83,7 @@ def add_transaction():
                 print("Amount must be a positive number.")
         except ValueError:
             print("Invalid amount. Please enter a numeric value.")
+    # Input Type(Expense,Income)
 
     while True:
         trans_type = input("Enter type (Expense or Income): ").strip().capitalize()
@@ -121,6 +126,7 @@ def edit_transaction():
     print()
     date, category, description, amount, _ = transactions.loc[row, :]
 
+    # Input new Date
     while True:
         try:
             date_n = input("Enter new date(YYYY-MM-DD) or press Enter to keep current: ")
@@ -132,6 +138,7 @@ def edit_transaction():
         except ValueError:
             print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
 
+    # Input new Category
     while True:
         category_n = input("Enter new category or press Enter to keep current: ")
         if category_n.strip():
@@ -140,6 +147,7 @@ def edit_transaction():
             category_n = category
             break
 
+    # Input new Describe
     while True:
         description_n = input("Enter new description or press Enter to keep current: ")
         if description_n.strip():
@@ -148,6 +156,7 @@ def edit_transaction():
             description_n = description
             break
 
+    # Input new Amount
     while True:
         try:
             amount_n = input("Enter new amount or press Enter to keep current: ")
@@ -162,10 +171,27 @@ def edit_transaction():
         except ValueError:
             print("Invalid amount. Please enter a numeric value.")
 
+    # Editing the transaction by accessing the row
     transactions.loc[row, ["Date", "Category", "Description", "Amount"]] = [date_n, category_n, description_n, amount_n]
     update_transactions(transactions)
     print("Transaction edited successfully!")
 
 
 def delete_transaction():
-    print("delete_transaction")
+    transactions = get_transactions()
+    if transactions.empty:
+        print("There are not transactions available.")
+        return
+    print(transactions)
+    while True:  # validate the transaction row
+        try:
+            row = int(input("Enter the number of the transaction you want to delete: "))
+            if 0 <= row <= (len(transactions) - 1):
+                break
+            else:
+                print("Enter a valid number of transaction.")
+        except ValueError:
+            print("Enter a valid number of transaction.")
+
+    transactions = transactions.drop(row).reset_index(drop=True)  # print the transaction details
+    print("Transaction deleted successfully!")

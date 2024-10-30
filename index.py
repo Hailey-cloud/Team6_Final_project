@@ -94,7 +94,30 @@ def analyze_spending_by_category():
     print("analyze_spending_by_category")
 
 def calculate_average_monthly_spending():
-    print("calculate_average_monthly_spending")
+    print("--- Average Monthly Spending ---")
+    global transactions
+
+    if transactions.empty:
+        print("No transactions to display.Import a CSV File.")
+
+    else:
+        spending_data_only_expenses = transactions[transactions["Type"] == "Expense"]
+
+        if spending_data_only_expenses.empty:
+            print("No transactions to display.")
+
+        else:
+            date_and_expense = spending_data_only_expenses[["Date","Amount"]]
+            date_and_expense.loc[:,"Date"] = pd.to_datetime(date_and_expense["Date"])
+            date_and_expense.set_index("Date",inplace=True)
+
+
+            monthly_average = date_and_expense.resample("MS").mean()
+            overall_average = monthly_average["Amount"].mean().round(3)
+            print(f"Average Monthly Spending is {overall_average}. \n")
+
+            print("--- Details ---\n")
+            print(monthly_average)
 
 def show_top_spending_category():
     print("show_top_spending_category")

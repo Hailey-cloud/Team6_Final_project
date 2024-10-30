@@ -257,9 +257,14 @@ def show_top_spending_category():
         print("There are not transactions available.")
     else:
         expenses = transactions[transactions['Type'] == "Expense"]
-        top_cat_expenses = expenses.groupby('Category')[['Amount']].sum().sort_values(by='Amount', ascending=False)
-        print("The top spending categories are:")
-        print(top_cat_expenses)
+        if expenses.empty:
+            print("There are not spending transactions available.")
+        else:
+            top_cat_expenses = expenses.groupby('Category')[['Amount']].sum()
+            top_amount = top_cat_expenses['Amount'].max()
+            top_cat = top_cat_expenses['Amount'].idxmax()
+            print("--- Top spending category ---")
+            print(f"{top_cat} with ${top_amount} total spending.")
 
 def visualize_monthly_spending():
     print("visualize_monthly_spending")

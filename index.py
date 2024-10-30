@@ -89,32 +89,30 @@ def edit_transaction():
 
 def delete_transaction():
     print("delete_transaction")
-
 def analyze_spending_by_category():
-    print("analyze_spending_by_category")
+    print("--- Total Spending by Category ---")
     global transactions
 
-    spending_data = transactions[transactions["Type"] == "Expense"]
+    if transactions.empty:
+        print("No transactions to display.Import a CSV file at first.")
 
-    total_spending_each_category = spending_data.groupby("Category")["Amount"].sum()
-    total_spending_each_category = total_spending_each_category.sort_values(ascending=True)
+    else:
+        spending_data = transactions[transactions["Type"] == "Expense"]
 
-    print(total_spending_each_category)
+        total_spending_each_category = spending_data.groupby("Category")["Amount"].sum()
+        total_spending_each_category = total_spending_each_category.sort_values(ascending=True)
+        print(total_spending_each_category)
 
-    total_spending_each_category.plot(kind="bar",color="orange",grid="True")
+        total_spending_each_category.plot(kind="bar",color="orange",grid="True")
 
-    plt.title("total_spending_each_category")
-    plt.xlabel("Category")
-    plt.ylabel("Total amount (CAD)")
+        plt.title("total_spending_each_category")
+        plt.xlabel("Category")
+        plt.ylabel("Total amount (CAD)")
 
-    for index, value in enumerate(total_spending_each_category):
-        plt.text(index, value, f'{value:.2f}', ha='center', va='bottom')
+        for index, value in enumerate(total_spending_each_category):
+            plt.text(index, value, f'{value:.2f}', ha='center', va='bottom')
 
-    plt.show()
-
-
-
-
+        plt.show()
 def calculate_average_monthly_spending():
     print("calculate_average_monthly_spending")
 

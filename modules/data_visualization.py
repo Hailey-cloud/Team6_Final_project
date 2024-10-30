@@ -26,10 +26,10 @@ def visualize_monthly_spending():
             plt.show()
 
 def set_category_budget():
-    print("visualize_spending_by_category")
+    print("1111111")
 
 def check_budget_status():
-    print("visualize_spending_distribution")
+    print("22222222")
 
 def income_manage_and_display_the_balance():
-    print("visualize_spending_distribution")
+    print("33333333")

@@ -200,7 +200,7 @@ def show_top_spending_category():
             top_cat_expenses = expenses.groupby('Category')[['Amount']].sum()
             top_amount = top_cat_expenses['Amount'].max()
             top_cat = top_cat_expenses['Amount'].idxmax()
-            print("The top spending category is:")
+            print("--- Top spending category ---")
             print(f"{top_cat} with ${top_amount} total spending.")
 
 def visualize_monthly_spending():

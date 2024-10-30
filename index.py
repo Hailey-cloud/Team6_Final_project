@@ -23,40 +23,36 @@ def view_transactions():
         print(transactions)
 
 def view_transactions_by_date():
-    global transactions
-
     print("view_transactions_by_date")
-
     min_date = transactions["Date"].min()
     max_date = transactions["Date"].max()
 
     while True:
         try:
             start_view_date = pd.to_datetime(input("Enter the start date(YYYY-MM-DD): "), format="%Y-%m-%d")
-
             if start_view_date < min_date or start_view_date > max_date:
                 print("Invalid date format. Please enter the valid date range.")
                 continue
-
-            while True:
-                try:
-                    end_view_date = pd.to_datetime(input("Enter the end date(YYYY-MM-DD): "), format="%Y-%m-%d")
-                    if end_view_date < min_date or end_view_date > max_date:
-                        print("Invalid date format. Please enter the valid date range.")
-                        continue
-
-                    filtered_data = (transactions["Date"] >= start_view_date) & (transactions["Date"] <= end_view_date)
-
-                    filtered_specified_data = transactions[filtered_data]
-
-                    print(filtered_specified_data)
-
-                except ValueError:
-                    print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
-
+            else:
+                break
         except ValueError:
             print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
 
+    while True:
+        try:
+            end_view_date = pd.to_datetime(input("Enter the end date(YYYY-MM-DD): "), format="%Y-%m-%d")
+            if end_view_date < min_date or end_view_date > max_date:
+                print("Invalid date format. Please enter the valid date range.")
+                continue
+            else:
+                break
+        except ValueError:
+            print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
+    filtered_data = (transactions["Date"] >= start_view_date) & (transactions["Date"] <= end_view_date)
+    filtered_specified_data = transactions[filtered_data]
+    print(filtered_specified_data)
+
+    
 def add_transaction():
     global transactions
 

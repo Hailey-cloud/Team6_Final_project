@@ -257,12 +257,37 @@ def show_top_spending_category():
         print("There are not transactions available.")
     else:
         expenses = transactions[transactions['Type'] == "Expense"]
-        top_cat_expenses = expenses.groupby('Category')[['Amount']].sum().sort_values(by='Amount', ascending=False)
-        print("The top spending categories are:")
-        print(top_cat_expenses)
+        if expenses.empty:
+            print("There are not spending transactions available.")
+        else:
+            top_cat_expenses = expenses.groupby('Category')[['Amount']].sum()
+            top_amount = top_cat_expenses['Amount'].max()
+            top_cat = top_cat_expenses['Amount'].idxmax()
+            print("--- Top spending category ---")
+            print(f"{top_cat} with ${top_amount} total spending.")
 
 def visualize_monthly_spending():
-    print("visualize_monthly_spending")
+    print("--- Visualize Monthly Spending ---")
+    global transactions
+    if transactions.empty:
+        print("There are not transactions available.")
+    else:
+        expenses = transactions[transactions['Type'] == "Expense"]
+        if expenses.empty:
+            print("There are not spending transactions available.")
+        else:
+            monthly_expenses = (expenses.groupby([expenses['Date'].dt.to_period('M'),'Category'])['Amount']
+                                .sum().reset_index())
+            # plot monthly spending
+            pivot_expenses = monthly_expenses.pivot(index='Date', columns='Category', values='Amount').fillna(0)
+            pivot_expenses.plot(kind='bar', stacked=True, color=['orange', 'cyan', 'lime', 'yellow'],edgecolor="black")
+            plt.xlabel("Months")
+            plt.ylabel("Values")
+            plt.title("Visualize Monthly Spending")
+            plt.xticks(rotation=45)
+            plt.legend(title='Category')
+            plt.tight_layout()
+            plt.show()
 
 def visualize_spending_by_category():
     print("visualize_spending_by_category")

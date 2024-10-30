@@ -6,7 +6,7 @@ from modules.data_analysis import analyze_spending_by_category, calculate_averag
     show_top_spending_category
 from modules.data_visualization import visualize_spending_by_category, visualize_monthly_spending, \
     visualize_spending_distribution
-
+from modules.data_storage import get_transactions,update_transactions
 
 def main_menu():
     while True:

@@ -4,8 +4,7 @@ from modules.data_management import add_transaction, edit_transaction, delete_tr
     view_transactions_by_date
 from modules.data_analysis import analyze_spending_by_category, calculate_average_monthly_spending, \
     show_top_spending_category
-from modules.data_visualization import visualize_spending_by_category, visualize_monthly_spending, \
-    visualize_spending_distribution
+from modules.data_visualization import visualize_monthly_spending, set_category_budget,check_budget_status,income_manage_and_display_the_balance
 from modules.data_storage import get_transactions,update_transactions
 
 def main_menu():
@@ -21,10 +20,14 @@ def main_menu():
         print("7. Calculate Average Monthly Spending")
         print("8. Show Top Spending Category")
         print("9. Visualize Monthly Spending Trend")
-        print("10. Visualize Spending by Category")
-        print("11. Visualize Spending Distribution")
-        print("12. Save Transactions to CSV")
-        print("13. Exit")
+        # -----Extra------
+        print("10. Set Category Budget")
+        print("11. Check Budget Status")
+        print("12. Income Manage & Display the Balance")
+        # -----Extra------
+
+        print("13. Export the CSV")
+        print("14. Exit")
 
         choice = input("Choose an option (0-13): ")
 
@@ -48,13 +51,18 @@ def main_menu():
             show_top_spending_category()
         elif choice == "9":
             visualize_monthly_spending()
+        # -----Extra------
         elif choice == "10":
-            visualize_spending_by_category()
+            set_category_budget()
         elif choice == "11":
-            visualize_spending_distribution()
+            check_budget_status()
         elif choice == "12":
-            save_transactions_to_csv()
+            income_manage_and_display_the_balance()
+        # -----Extra------
+
         elif choice == "13":
+            save_transactions_to_csv()
+        elif choice == "14":
             print("Exiting the Personal Finance Tracker. Goodbye!")
             break
         else:

@@ -1,6 +1,6 @@
 # modules/data_visualization.py
 import matplotlib.pyplot as plt
-from data_storage import get_transactions
+from .data_storage import get_transactions
 
 def visualize_monthly_spending():
     print("visualize_monthly_spending")

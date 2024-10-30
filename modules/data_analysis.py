@@ -1,5 +1,5 @@
 # modules/data_analysis.py
-from data_storage import get_transactions
+from .data_storage import get_transactions
 
 def analyze_spending_by_category():
     transactions = get_transactions()

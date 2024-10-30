@@ -1,6 +1,6 @@
 # modules/file_operations.py
 import pandas as pd
-from data_storage import get_transactions, update_transactions
+from .data_storage import get_transactions, update_transactions
 
 def import_csv():
     global transactions

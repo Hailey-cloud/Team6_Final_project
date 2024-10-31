@@ -1,0 +1,54 @@
+Date,Category,Description,Amount,Type
+2024-01-05,Food,Grocery,65.30,Expense
+2024-01-10,Income,Salary,2100.0,Income
+2024-01-15,Transport,Bus Pass,50.0,Expense
+2024-01-20,Utilities,Internet Bill,55.0,Expense
+2024-02-02,Rent,Monthly Rent,1200.0,Expense
+2024-02-08,Food,Restaurant,45.0,Expense
+2024-02-18,Income,Freelance Work,300.0,Income
+2024-02-25,Entertainment,Movie Ticket,12.0,Expense
+2024-03-05,Utilities,Electricity Bill,70.0,Expense
+2024-03-12,Transport,Taxi,30.0,Expense
+2024-03-20,Income,Salary,2200.0,Income
+2024-03-28,Food,Coffee,5.5,Expense
+2024-04-03,Food,Grocery,75.0,Expense
+2024-04-10,Income,Investment Return,150.0,Income
+2024-04-15,Entertainment,Concert Ticket,85.0,Expense
+2024-04-20,Utilities,Gas Bill,40.0,Expense
+2024-05-01,Rent,Monthly Rent,1200.0,Expense
+2024-05-08,Food,Lunch,20.0,Expense
+2024-05-15,Income,Freelance Work,500.0,Income
+2024-05-20,Transport,Bus Ticket,3.0,Expense
+2024-05-25,Food,Dinner,35.0,Expense
+2024-06-01,Utilities,Water Bill,45.0,Expense
+2024-06-10,Income,Salary,2300.0,Income
+2024-06-15,Food,Grocery,90.0,Expense
+2024-06-20,Entertainment,Amusement Park,60.0,Expense
+2024-07-02,Rent,Monthly Rent,1200.0,Expense
+2024-07-08,Food,Breakfast,10.0,Expense
+2024-07-15,Income,Freelance Work,400.0,Income
+2024-07-20,Utilities,Electricity Bill,65.0,Expense
+2024-07-25,Transport,Taxi,40.0,Expense
+2024-08-05,Food,Grocery,85.0,Expense
+2024-08-10,Income,Salary,2400.0,Income
+2024-08-15,Entertainment,Theater Ticket,50.0,Expense
+2024-08-20,Utilities,Internet Bill,55.0,Expense
+2024-09-01,Rent,Monthly Rent,1200.0,Expense
+2024-09-05,Food,Lunch,18.0,Expense
+2024-09-10,Income,Investment Return,250.0,Income
+2024-09-15,Transport,Bus Pass,50.0,Expense
+2024-09-20,Food,Dinner,28.0,Expense
+2024-10-02,Utilities,Gas Bill,45.0,Expense
+2024-10-10,Income,Freelance Work,350.0,Income
+2024-10-18,Transport,Bus Ticket,2.5,Expense
+2024-10-25,Food,Grocery,70.0,Expense
+2024-11-02,Rent,Monthly Rent,1200.0,Expense
+2024-11-08,Food,Restaurant,40.0,Expense
+2024-11-15,Income,Salary,2500.0,Income
+2024-11-20,Entertainment,Movie Ticket,14.0,Expense
+2024-11-25,Utilities,Electricity Bill,60.0,Expense
+2024-12-01,Food,Lunch,22.0,Expense
+2024-12-10,Income,Investment Return,300.0,Income
+2024-12-15,Transport,Taxi,35.0,Expense
+2024-12-20,Utilities,Water Bill,50.0,Expense
+2024-12-25,Food,Dinner,45.0,Expense

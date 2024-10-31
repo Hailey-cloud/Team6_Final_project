@@ -11,7 +11,6 @@ def view_transactions():
         print(transactions)
 
 
-# ERROR
 def view_transactions_by_date():
     transactions = get_transactions()
     print("view_transactions_by_date")

@@ -1,5 +1,7 @@
 # modules/data_visualization.py
 import matplotlib.pyplot as plt
+import numpy as np
+
 from .data_storage import get_transactions, transactions
 
 food = 0
@@ -90,7 +92,7 @@ def set_category_budget():
     print(f"- Rent: ${round(rent, 2)}")
     print(f"- Utilities: ${round(utilities, 2)}")
     print(f"- Transport: ${round(transport, 2)}")
-    print(f"- Transport: ${round(other, 2)}")
+    print(f"- Other: ${round(other, 2)}")
 
     # return budget categories
     return food, rent, utilities, transport, other
@@ -119,13 +121,18 @@ def check_budget_status():
 
     # from transactions, get expenses
     expense = transactions[transactions['Type'] == "Expense"]
+    if expense.empty:
+        print("There are not spending transactions available.")
+        return
+
     # from expenses get by categories
     cat_exp = expense.groupby('Category')['Amount'].sum()
     food_exp = cat_exp.get("Food", 0)   # cat_exp.get("label", default_value)  to get the value of the label
     rent_exp = cat_exp.get("Rent", 0)
     utilities_exp = cat_exp.get("Utilities", 0)
     transport_exp = cat_exp.get("Transport", 0)
-    other_exp = cat_exp.get("Other", 0)
+    # other_exp = cat_exp.get("Other", 0)
+    other_exp = cat_exp[cat_exp.index.isin(["Food", "Rent", "Utilities", "Transport"]) == False].sum()
 
     # dictionary from expenses
     expense_dict = {
@@ -166,6 +173,18 @@ def check_budget_status():
         print("- You are within budget. Keep up the good work!")
     elif 0 < ok < 5:
         print("- You are on track for other categories.")
+
+    # plot the budget vs expenses
+    x = np.array([0, 1, 2, 3, 4])
+    width = 0.25  # Width of each bar
+    plt.bar(x - width / 2, expense_dict.values(), width, color='blue', edgecolor='black', label="Expenses")
+    plt.bar(x + width / 2, budget_dict.values(), width, color='salmon', edgecolor='black', label="Budget")
+    plt.title("Expenses vs Budget per categories")
+    plt.xlabel("Categories")
+    plt.ylabel("Amount")
+    plt.xticks(x,['Food', 'Rent', 'Utilities', 'Transport', 'Other'])
+    plt.legend()
+    plt.show()
 
 def income_manage_and_display_the_balance():
     print("33333333")

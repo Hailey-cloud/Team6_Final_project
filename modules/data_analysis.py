@@ -1,5 +1,6 @@
 # modules/data_analysis.py
 import matplotlib.pyplot as plt
+import pandas as pd
 from .data_storage import get_transactions
 
 def analyze_spending_by_category():
@@ -38,18 +39,12 @@ def calculate_average_monthly_spending():
             print("No transactions to display.")
 
         else:
-            date_and_expense = spending_data_only_expenses[["Date","Amount"]]
-            date_and_expense.loc[:,"Date"] = pd.to_datetime(date_and_expense["Date"])
-            date_and_expense.set_index("Date",inplace=True)
-
-
-            monthly_average = date_and_expense.resample("MS").mean()
-            overall_average = monthly_average["Amount"].mean().round(3)
-            print(f"Average Monthly Spending is {overall_average}. \n")
-
-            print("--- Details ---\n")
+            monthly_average = spending_data_only_expenses.groupby(spending_data_only_expenses['Date']
+                                                                  .dt.to_period('M'))['Amount'].mean().round(2)
+            overall_average = monthly_average.mean().round(2)
+            print(f"Average Monthly Spending is ${overall_average}. \n")
+            print("--- Details ---")
             print(monthly_average)
-
 
 
 def show_top_spending_category():

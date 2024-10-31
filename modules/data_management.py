@@ -15,6 +15,10 @@ def view_transactions():
 def view_transactions_by_date():
     transactions = get_transactions()
     print("view_transactions_by_date")
+    if transactions.empty:
+        print("No transactions to display.")
+        return
+
     min_date = transactions["Date"].min()
     max_date = transactions["Date"].max()
 

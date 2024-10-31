@@ -4,7 +4,7 @@ from .data_storage import get_transactions, update_transactions
 
 def import_csv():
     global transactions
-    file_path = "sampledata.csv"
+    file_path = input("Enter the name of csv file: ")
     try:
         transactions = pd.read_csv(file_path, parse_dates=["Date"])
         update_transactions(transactions)
@@ -13,7 +13,7 @@ def import_csv():
         print(f"Error importing file: {e}")
 
 def save_transactions_to_csv():
-    transactions = get_transactions()
+    file_path = "export.csv"
     file_path = "sampledata.csv"
     if transactions.empty:
         print("There are no transactions yet. No file saved.")

@@ -11,10 +11,13 @@ def view_transactions():
         print(transactions)
 
 
-# ERROR
 def view_transactions_by_date():
     transactions = get_transactions()
     print("view_transactions_by_date")
+    if transactions.empty:
+        print("No transactions to display.")
+        return
+
     min_date = transactions["Date"].min()
     max_date = transactions["Date"].max()
 
@@ -194,4 +197,5 @@ def delete_transaction():
             print("Enter a valid number of transaction.")
 
     transactions = transactions.drop(row).reset_index(drop=True)  # print the transaction details
+    update_transactions(transactions)
     print("Transaction deleted successfully!")

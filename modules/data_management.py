@@ -197,4 +197,5 @@ def delete_transaction():
             print("Enter a valid number of transaction.")
 
     transactions = transactions.drop(row).reset_index(drop=True)  # print the transaction details
+    update_transactions(transactions)
     print("Transaction deleted successfully!")

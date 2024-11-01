@@ -2,7 +2,7 @@
 import matplotlib.pyplot as plt
 from .data_storage import get_transactions
 import pandas as pd
-
+import numpy as np
 from .data_storage import get_transactions, transactions
 
 food = 0
